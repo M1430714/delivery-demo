@@ -21,31 +21,57 @@
     <main class="container">
       <section class="page-heading">
         <p class="eyebrow">會員中心</p>
-        <h1>你好，校園小熊</h1>
-        <p class="muted">這裡提供示範會員資料與偏好設定，內容不會使用真實個人資料。</p>
+        <h1>會員資料</h1>
+        <p class="muted">請填寫以下資訊，內容僅作示範用途，不會送出真實個人資料。</p>
       </section>
 
       <section class="panel" aria-labelledby="profile-title">
-        <h2 id="profile-title">會員資料</h2>
-        <p class="muted">以下為測試用資料，僅供本次協作練習使用。</p>
-        <div class="grid">
-          <article class="card">
-            <h3>基本資料</h3>
-            <ul>
-              <li><strong>暱稱：</strong>校園小熊</li>
-              <li><strong>學校：</strong>示範大學</li>
-              <li><strong>常用地址：</strong>校內宿舍 A 棟 101 室</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>偏好設定</h3>
-            <ul>
-              <li><strong>偏好口味：</strong>夏威夷披薩、青蔥起司</li>
-              <li><strong>付款方式：</strong>學生證點數 / 模擬付款</li>
-              <li><strong>通知方式：</strong>站內訊息與示範郵件通知</li>
-            </ul>
-          </article>
-        </div>
+        <h2 id="profile-title">建立或更新會員資料</h2>
+        <form>
+          <div class="grid">
+            <article class="card">
+              <h3>基本資料</h3>
+              <p>
+                <label for="nickname">暱稱</label><br />
+                <input id="nickname" type="text" placeholder="請輸入暱稱" />
+              </p>
+              <p>
+                <label for="school">學校</label><br />
+                <input id="school" type="text" placeholder="請輸入學校名稱" />
+              </p>
+              <p>
+                <label for="address">常用地址</label><br />
+                <input id="address" type="text" placeholder="請輸入示範地址" />
+              </p>
+            </article>
+            <article class="card">
+              <h3>偏好設定</h3>
+              <p>
+                <label for="favorite-food">偏好口味</label><br />
+                <input id="favorite-food" type="text" placeholder="例如：夏威夷披薩" />
+              </p>
+              <p>
+                <label for="payment">付款方式</label><br />
+                <select id="payment">
+                  <option value="">請選擇</option>
+                  <option value="linepay">Line Pay</option>
+                  <option value="visa">Visa</option>
+                  <option value="alipay">支付寶</option>
+                  <option value="student-points">學生證點數</option>
+                </select>
+              </p>
+              <p>
+                <label for="notify">通知方式</label><br />
+                <input id="notify" type="text" placeholder="例如：站內訊息" />
+              </p>
+              <p>
+                <label for="feedback">問題回饋</label><br />
+                <textarea id="feedback" rows="4" placeholder="請輸入你的問題或建議"></textarea>
+              </p>
+            </article>
+          </div>
+          <button type="submit">儲存資料（示範）</button>
+        </form>
       </section>
     </main>
     <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
