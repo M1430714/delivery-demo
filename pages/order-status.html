@@ -13,8 +13,27 @@
     </header>
     <main class="container">
       <section class="page-heading"><p class="eyebrow">外送進度</p><h1>訂單狀態</h1><p class="muted">使用模擬資料呈現目前的配送進度。</p></section>
-      <!-- 成員 5：將此區塊改為至少三個訂單進度步驟。 -->
-      <section class="placeholder"><h2>目前進度</h2><p>待完成：顯示「店家接單」、「餐點製作中」、「外送途中」等狀態。</p></section>
+      <section class="panel order-progress" aria-labelledby="progress-heading">
+        <h2 id="progress-heading">訂單進度</h2>
+        <p class="muted">下方顯示訂單目前所處的進度（模擬用）。</p>
+
+        <ol id="order-steps" class="steps" aria-live="polite">
+          <!-- 由 JS 渲染 7 個步驟 -->
+        </ol>
+
+        <div class="progress-controls">
+          <button id="prev-step" class="button">上一步</button>
+          <button id="next-step" class="button">下一步</button>
+          <label style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+            <input type="checkbox" id="auto-advance" /> 自動追蹤
+          </label>
+          <label class="muted" style="display:flex;align-items:center;gap:8px;margin-left:8px;">
+            間隔秒數
+            <input type="number" id="auto-advance-interval" value="3" min="1" style="width:64px;padding:6px;border-radius:6px;border:1px solid #d7dee8;" />
+          </label>
+          <span id="current-step-label" class="muted"></span>
+        </div>
+      </section>
     </main>
     <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
   </body>
