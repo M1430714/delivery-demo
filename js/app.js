@@ -78,7 +78,13 @@ document.addEventListener("click", (event) => {
   const addBtn = event.target.closest("[data-add-to-cart]");
   if (addBtn) {
     const name = addBtn.dataset.addToCart || "餐點";
-    if (statusMessage) statusMessage.textContent = `已加入「${name}」`;
+    cartCount += 1;
+    cartCountElements.forEach((element) => {
+      element.textContent = cartCount;
+    });
+    if (statusMessage) {
+      statusMessage.textContent = `已將「${name}」加入購物車。`;
+    }
     return;
   }
 });

@@ -3,20 +3,91 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>校園外送｜菜單</title>
+    <title>餐點菜單｜校園外送</title>
     <link rel="stylesheet" href="../css/base.css" />
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="../index.html">校園外送</a>
-      <nav aria-label="主要導覽"><a href="restaurants.html">餐廳</a><a href="cart.html">購物車 <span data-cart-count>0</span></a><a href="../index.html">首頁</a></nav>
+      <nav aria-label="主要導覽">
+        <a href="../index.html">首頁</a>
+        <a href="restaurants.html">餐廳</a>
+        <a href="menu.html" aria-current="page">菜單</a>
+        <a href="cart.html">購物車（<span data-cart-count>0</span>）</a>
+      </nav>
     </header>
+
     <main class="container">
-      <section class="page-heading"><p class="eyebrow">本日菜單</p><h1>晴天咖啡</h1><p class="muted">挑選餐點後，按下按鈕加入購物車。</p></section>
+      <section class="page-heading">
+        <p class="eyebrow">精選菜單</p>
+        <h1>挑選你的下一餐</h1>
+        <p class="muted">所有餐點皆為課堂示範資料；按下按鈕即可測試加入購物車提示。</p>
+      </section>
+
       <p class="status-message" data-status-message aria-live="polite"></p>
-      <!-- 成員 3：將此區塊改為至少三張餐點卡片，每張需有名稱、價格和加入購物車按鈕。 -->
-      <section class="placeholder"><h2>餐點列表</h2><p>待完成：使用 <code>data-add-to-cart</code> 讓按鈕顯示加入提示。</p></section>
+
+      <section id="morning" aria-labelledby="morning-title">
+        <h2 id="morning-title">晨光早餐屋</h2>
+        <div class="grid">
+          <article class="card">
+            <p class="eyebrow">人氣早餐</p>
+            <h3>起司薯餅蛋吐司</h3>
+            <p>香酥薯餅、滑嫩煎蛋與濃郁起司，搭配烤得酥香的吐司。</p>
+            <p><strong>NT$ 65</strong></p>
+            <button type="button" data-add-to-cart="起司薯餅蛋吐司">加入購物車</button>
+          </article>
+          <article class="card">
+            <p class="eyebrow">經典口味</p>
+            <h3>玉米鮪魚蛋餅</h3>
+            <p>鮪魚、甜玉米與蛋香包進酥嫩餅皮，簡單又有飽足感。</p>
+            <p><strong>NT$ 55</strong></p>
+            <button type="button" data-add-to-cart="玉米鮪魚蛋餅">加入購物車</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="lunchbox" aria-labelledby="lunchbox-title">
+        <h2 id="lunchbox-title">校園好食堂</h2>
+        <div class="grid">
+          <article class="card">
+            <p class="eyebrow">招牌便當</p>
+            <h3>蜜汁烤雞腿飯</h3>
+            <p>去骨雞腿刷上蜜汁醬烤至金黃，附白飯與三樣當日配菜。</p>
+            <p><strong>NT$ 120</strong></p>
+            <button type="button" data-add-to-cart="蜜汁烤雞腿飯">加入購物車</button>
+          </article>
+          <article class="card">
+            <p class="eyebrow">清爽選擇</p>
+            <h3>香煎鯖魚飯</h3>
+            <p>鯖魚煎至外皮酥香，搭配時蔬與白飯，營養均衡。</p>
+            <p><strong>NT$ 130</strong></p>
+            <button type="button" data-add-to-cart="香煎鯖魚飯">加入購物車</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="pasta" aria-labelledby="pasta-title">
+        <h2 id="pasta-title">巷口義麵坊</h2>
+        <div class="grid">
+          <article class="card">
+            <p class="eyebrow">濃郁白醬</p>
+            <h3>奶油培根義大利麵</h3>
+            <p>香煎培根與蘑菇拌入滑順奶油白醬，口感濃郁。</p>
+            <p><strong>NT$ 145</strong></p>
+            <button type="button" data-add-to-cart="奶油培根義大利麵">加入購物車</button>
+          </article>
+          <article class="card">
+            <p class="eyebrow">經典紅醬</p>
+            <h3>番茄肉醬義大利麵</h3>
+            <p>酸甜番茄醬慢燉豬肉末，撒上起司增添香氣。</p>
+            <p><strong>NT$ 135</strong></p>
+            <button type="button" data-add-to-cart="番茄肉醬義大利麵">加入購物車</button>
+          </article>
+        </div>
+      </section>
     </main>
-    <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
+
+    <footer>校園外送・課堂協作練習專案</footer>
+    <script src="../js/app.js"></script>
   </body>
 </html>
