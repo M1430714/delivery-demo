@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>校園外送｜聯絡我們</title>
+    <link rel="stylesheet" href="../css/base.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html">校園外送</a>
+      <nav aria-label="主要導覽">
+        <a href="restaurants.html">餐廳</a>
+        <a href="menu.html">菜單</a>
+        <a href="cart.html">購物車 <span data-cart-count>0</span></a>
+        <a href="order-status.html">訂單狀態</a>
+        <a href="profile.html">會員中心</a>
+        <a href="../index.html">首頁</a>
+      </nav>
+    </header>
+    <main class="container">
+      <section class="page-heading">
+        <p class="eyebrow">需要協助嗎？</p>
+        <h1>聯絡我們</h1>
+        <p class="muted">這裡提供示範客服資訊與一個不會送出資料的意見表單。</p>
+      </section>
+
+      <section class="panel" aria-labelledby="service-title">
+        <h2 id="service-title">客服資訊</h2>
+        <p class="muted">以下為測試用客服資訊，由示範客服團隊負責回覆。</p>
+        <div class="grid">
+          <article class="card">
+            <h3>服務時間</h3>
+            <p class="muted">週一至週五 10:00–21:00<br />週末 12:00–20:00</p>
+          </article>
+          <article class="card">
+            <h3>聯絡方式</h3>
+            <ul>
+              <li><strong>客服信箱：</strong>support@example.edu</li>
+              <li><strong>Line：</strong>@campusdelivery</li>
+              <li><strong>常見問題：</strong><a href="../index.html">查看 FAQ</a></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="feedback-title">
+        <h2 id="feedback-title">意見表單</h2>
+        <p class="muted">這是示範用表單，點下送出後不會真的傳送任何資料。</p>
+        <form onsubmit="event.preventDefault();">
+          <p>
+            <label for="topic">主旨</label><br />
+            <input id="topic" type="text" value="配送速度建議" readonly />
+          </p>
+          <p>
+            <label for="message">您的想法</label><br />
+            <textarea id="message" rows="4" placeholder="請輸入示範內容...">希望外送時效能再更穩定一些。</textarea>
+          </p>
+          <button type="submit">提交（示範）</button>
+        </form>
+      </section>
+    </main>
+    <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
+  </body>
+</html>
