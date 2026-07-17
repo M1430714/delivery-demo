@@ -6,7 +6,7 @@
     <title>校園外送｜首頁</title>
     <link rel="stylesheet" href="css/base.css" />
   </head>
-  <body>
+  <body class="home-page">
     <header class="site-header">
       <a class="brand" href="index.html">校園外送</a>
       <nav aria-label="主要導覽">
@@ -21,15 +21,81 @@
     <main class="container">
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow">校園限定服務</p>
-        <h1 id="page-title">想吃什麼，送到你手上</h1>
-        <p>這是一個供小組協作練習使用的外送系統前台原型。</p>
+        <h1 id="page-title">現烤披薩，20 分鐘送到宿舍門口</h1>
+        <p>
+          窯烤披薩專門店，每一張都是接單後才進爐。從下單到你手上不超過 20
+          分鐘，趕報告的深夜也不用餓肚子。
+        </p>
         <a class="button" href="pages/restaurants.html">瀏覽餐廳</a>
       </section>
 
       <!-- 成員 1：在這裡完成首頁與平台介紹功能。 -->
-      <section id="home-feature" class="placeholder" aria-labelledby="home-feature-title">
+      <section id="home-feature" class="panel" aria-labelledby="home-feature-title">
         <h2 id="home-feature-title">平台介紹</h2>
-        <p>待完成：介紹校園外送的特色與使用流程。</p>
+        <p class="muted">
+          我們是專為校園服務的窯烤披薩外送平台。麵團每天現揉、低溫發酵 24
+          小時，搭配 400 度石窯爐現烤，只送校內宿舍與教學區，範圍小、速度快。線上點餐、線上追蹤，全程不用打電話。
+        </p>
+      </section>
+
+      <section aria-labelledby="features-title">
+        <h2 id="features-title">服務特色</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>現點現烤</h3>
+            <p class="muted">
+              接單後才把披薩送進石窯，沒有預先做好的庫存。送到門口時餅皮還是脆的，起司還在牽絲。
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>20 分鐘校園直送</h3>
+            <p class="muted">
+              只服務校內範圍，外送員騎車最遠 5 分鐘就到。系統會即時顯示訂單進度，不用一直猜還要等多久。
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>學生價，滿額免運</h3>
+            <p class="muted">
+              憑學生證享全品項折扣，訂單滿 NT$ 300 免運費。揪室友一起訂最划算。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="steps-title">
+        <h2 id="steps-title">怎麼點餐</h2>
+        <div class="grid">
+          <article class="card step">
+            <span class="step-number" aria-hidden="true">01</span>
+            <h3>挑選口味</h3>
+            <p class="muted">
+              到<a href="pages/menu.html">菜單頁</a>看今天供應的品項，經典瑪格麗特到重口味夏威夷都有。
+            </p>
+          </article>
+
+          <article class="card step">
+            <span class="step-number" aria-hidden="true">02</span>
+            <h3>加入購物車</h3>
+            <p class="muted">
+              選好按下加入購物車，到<a href="pages/cart.html">購物車</a>確認金額與運費，再送出訂單。
+            </p>
+          </article>
+
+          <article class="card step">
+            <span class="step-number" aria-hidden="true">03</span>
+            <h3>追蹤訂單</h3>
+            <p class="muted">
+              在<a href="pages/order-status.html">訂單狀態</a>看到接單、製作中、外送途中三個階段，披薩到哪了一目瞭然。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="notice">
+        <strong>課堂練習聲明：</strong>
+        這是小組 Git 協作練習用的靜態網站原型，不會真的接單、付款或外送。
       </section>
     </main>
 

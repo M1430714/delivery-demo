@@ -9,7 +9,12 @@
   <body>
     <header class="site-header">
       <a class="brand" href="../index.html">校園外送</a>
-      <nav aria-label="主要導覽"><a href="cart.html">購物車</a><a href="profile.html">會員中心</a><a href="../index.html">首頁</a></nav>
+      <nav aria-label="主要導覽">
+        <a href="menu.html">菜單</a>
+        <a href="cart.html">購物車</a>
+        <a href="profile.html">會員中心</a>
+        <a href="../index.html">首頁</a>
+      </nav>
     </header>
     <main class="container">
       <section class="page-heading"><p class="eyebrow">外送進度</p><h1>訂單狀態</h1><p class="muted">使用模擬資料呈現目前的配送進度。</p></section>
@@ -32,6 +37,19 @@
             <input type="number" id="auto-advance-interval" value="3" min="1" style="width:64px;padding:6px;border-radius:6px;border:1px solid #d7dee8;" />
           </label>
           <span id="current-step-label" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="panel order-summary" aria-labelledby="order-summary-heading">
+        <h2 id="order-summary-heading">訂單摘要</h2>
+        <p class="muted">您已選取的餐點與金額明細（模擬資料）。</p>
+
+        <ul class="cart-items" id="order-summary-items"></ul>
+
+        <div class="cart-totals" aria-live="polite">
+          <div class="totals-row"><span>小計</span><span id="order-summary-subtotal">NT$0</span></div>
+          <div class="totals-row"><span>運費</span><span id="order-summary-shipping">NT$0</span></div>
+          <div class="totals-row total"><span>總金額</span><span id="order-summary-total">NT$0</span></div>
         </div>
       </section>
     </main>

@@ -4,10 +4,32 @@ const cartCountElements = document.querySelectorAll("[data-cart-count]");
 const statusMessage = document.querySelector("[data-status-message]");
 
 // 範例購物車（至少兩項披薩）
-let cart = [
-  { id: 1, name: "瑪格麗特披薩", price: 250, qty: 1 },
-  { id: 2, name: "夏威夷披薩", price: 280, qty: 1 }
-];
+// 預設購物車內容（若 localStorage 無資料則使用空陣列）
+let cart = [];
+
+function loadCartFromStorage() {
+  try {
+    const raw = localStorage.getItem('cart');
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed;
+  } catch (e) {
+    console.warn('loadCartFromStorage error', e);
+  }
+  return null;
+}
+
+function saveCartToStorage() {
+  try {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  } catch (e) {
+    console.warn('saveCartToStorage error', e);
+  }
+}
+
+// 嘗試從 localStorage 載入購物車（若存在）
+const _persisted = loadCartFromStorage();
+if (_persisted) cart = _persisted;
 
 const SHIPPING_FEE = 60;
 
@@ -18,8 +40,46 @@ const totalEl = document.getElementById("total");
 const simulateBtn = document.getElementById("simulate-order");
 const cartStatus = document.getElementById("cart-status");
 
+const orderSummaryItemsEl = document.getElementById("order-summary-items");
+const orderSummarySubtotalEl = document.getElementById("order-summary-subtotal");
+const orderSummaryShippingEl = document.getElementById("order-summary-shipping");
+const orderSummaryTotalEl = document.getElementById("order-summary-total");
+const menuListEl = document.getElementById("menu-list");
+
+const menuItems = [
+  { id: 101, name: "起司薯餅蛋吐司", price: 65, description: "香酥薯餅、滑嫩煎蛋與濃郁起司" },
+  { id: 102, name: "玉米鮪魚蛋餅", price: 55, description: "鮪魚、甜玉米與蛋香" },
+  { id: 103, name: "蜜汁烤雞腿飯", price: 120, description: "去骨雞腿與白飯、配菜" },
+  { id: 104, name: "香煎鯖魚飯", price: 130, description: "鯖魚煎至酥香，搭配時蔬" },
+  { id: 105, name: "奶油培根義大利麵", price: 145, description: "培根與蘑菇白醬" },
+  { id: 106, name: "番茄肉醬義大利麵", price: 135, description: "慢燉豬肉末與番茄醬" }
+];
+
 function formatMoney(n) {
   return `NT$${n.toString()}`;
+}
+
+function renderMenu() {
+  if (!menuListEl) return;
+
+  menuListEl.innerHTML = "";
+  menuItems.forEach((item) => {
+    const article = document.createElement("article");
+    article.className = "card";
+    article.innerHTML = `
+      <h3>${item.name}</h3>
+      <p>${item.description}</p>
+      <p><strong>${formatMoney(item.price)}</strong></p>
+      <div class="menu-actions">
+        <label>
+          數量
+          <input class="menu-qty" type="number" min="1" step="1" value="1" aria-label="${item.name} 數量" data-menu-qty>
+        </label>
+        <button class="button" data-add-to-cart data-id="${item.id}" data-price="${item.price}">加入購物車</button>
+      </div>
+    `;
+    menuListEl.appendChild(article);
+  });
 }
 
 function renderCart() {
@@ -57,8 +117,38 @@ function recalcTotals() {
   if (shippingEl) shippingEl.textContent = formatMoney(shipping);
   if (totalEl) totalEl.textContent = formatMoney(total);
 
+  if (orderSummarySubtotalEl) orderSummarySubtotalEl.textContent = formatMoney(subtotal);
+  if (orderSummaryShippingEl) orderSummaryShippingEl.textContent = formatMoney(shipping);
+  if (orderSummaryTotalEl) orderSummaryTotalEl.textContent = formatMoney(total);
+
   cartCount = cart.reduce((s, it) => s + it.qty, 0);
   cartCountElements.forEach((el) => (el.textContent = cartCount));
+}
+
+function renderOrderSummary() {
+  if (!orderSummaryItemsEl) return;
+
+  orderSummaryItemsEl.innerHTML = "";
+  if (cart.length === 0) {
+    const emptyMessage = document.createElement("li");
+    emptyMessage.className = "cart-item";
+    emptyMessage.innerHTML = `<div class="meta"><strong>購物車目前空空如也</strong><small>請到菜單頁新增餐點。</small></div>`;
+    orderSummaryItemsEl.appendChild(emptyMessage);
+    return;
+  }
+
+  cart.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "cart-item";
+    li.innerHTML = `
+      <div class="meta">
+        <strong>${item.name}</strong>
+        <small>${formatMoney(item.price)} x ${item.qty}</small>
+      </div>
+      <div>${formatMoney(item.price * item.qty)}</div>
+    `;
+    orderSummaryItemsEl.appendChild(li);
+  });
 }
 
 // 處理購物車按鈕（事件代理）
@@ -71,14 +161,34 @@ document.addEventListener("click", (event) => {
     if (!item) return;
     item.qty = Math.max(0, item.qty + delta);
     cart = cart.filter((c) => c.qty > 0);
+    saveCartToStorage();
     renderCart();
     return;
   }
 
   const addBtn = event.target.closest("[data-add-to-cart]");
   if (addBtn) {
-    const name = addBtn.dataset.addToCart || "餐點";
-    if (statusMessage) statusMessage.textContent = `已加入「${name}」`;
+    const id = Number(addBtn.dataset.id);
+    const price = Number(addBtn.dataset.price || 0);
+    const menuItem = menuItems.find((item) => item.id === id);
+    const name = menuItem?.name || "餐點";
+    const card = addBtn.closest(".card");
+    const qtyInput = card?.querySelector("[data-menu-qty]");
+    const qty = Math.max(1, Number(qtyInput?.value || 1));
+    const existing = cart.find((c) => c.id === id);
+
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      cart.push({ id, name, price, qty });
+    }
+
+    // 儲存與更新 UI
+    saveCartToStorage();
+    if (qtyInput) qtyInput.value = 1;
+    if (statusMessage) statusMessage.textContent = `已加入 ${qty} 份「${name}」`;
+    renderCart();
+    renderOrderSummary();
     return;
   }
 });
@@ -95,6 +205,7 @@ simulateBtn?.addEventListener("click", () => {
 
 // 初次渲染購物車
 renderCart();
+renderOrderSummary();
 
 // ---------- Order Progress (訂單進度) ----------
 const ORDER_STEPS = [
