@@ -289,6 +289,38 @@ footer {
   color: var(--ink-dim);
 }
 
+.container {
+  width: min(1040px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.page-heading {
+  margin: 46px 0 24px;
+}
+
+.page-heading h1 {
+  margin-bottom: 8px;
+  line-height: 1.15;
+  max-width: 38rem;
+}
+
+.page-heading p.muted {
+  max-width: 45rem;
+}
+
+.card,
+.panel,
+.placeholder {
+  min-height: 180px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-bottom: 36px;
+}
+
 @media (max-width: 700px) {
   .site-header {
     align-items: flex-start;
@@ -296,4 +328,20 @@ footer {
     gap: 14px;
     padding-top: 18px;
   }
+
+  .hero {
+    padding: 60px 0 40px;
+  }
+
+  .site-header,
+  .container,
+  footer {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .grid {
+    gap: 14px;
+  }
 }
+
