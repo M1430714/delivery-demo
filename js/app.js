@@ -18,8 +18,43 @@ const totalEl = document.getElementById("total");
 const simulateBtn = document.getElementById("simulate-order");
 const cartStatus = document.getElementById("cart-status");
 
+const orderSummaryItemsEl = document.getElementById("order-summary-items");
+const orderSummarySubtotalEl = document.getElementById("order-summary-subtotal");
+const orderSummaryShippingEl = document.getElementById("order-summary-shipping");
+const orderSummaryTotalEl = document.getElementById("order-summary-total");
+const menuListEl = document.getElementById("menu-list");
+
+const menuItems = [
+  { id: 1, name: "瑪格麗特披薩", price: 250, description: "經典羅勒乳酪搭配新鮮番茄" },
+  { id: 2, name: "夏威夷披薩", price: 280, description: "鳳梨火腿風味，甜鹹交錯" },
+  { id: 3, name: "燻雞凱薩沙拉", price: 200, description: "清爽生菜與燻雞，輕盈好選擇" }
+];
+
 function formatMoney(n) {
   return `NT$${n.toString()}`;
+}
+
+function renderMenu() {
+  if (!menuListEl) return;
+
+  menuListEl.innerHTML = "";
+  menuItems.forEach((item) => {
+    const article = document.createElement("article");
+    article.className = "card";
+    article.innerHTML = `
+      <h3>${item.name}</h3>
+      <p>${item.description}</p>
+      <p><strong>${formatMoney(item.price)}</strong></p>
+      <div class="menu-actions">
+        <label>
+          數量
+          <input class="menu-qty" type="number" min="1" step="1" value="1" aria-label="${item.name} 數量" data-menu-qty>
+        </label>
+        <button class="button" data-add-to-cart data-id="${item.id}" data-price="${item.price}">加入購物車</button>
+      </div>
+    `;
+    menuListEl.appendChild(article);
+  });
 }
 
 function renderCart() {
@@ -57,8 +92,38 @@ function recalcTotals() {
   if (shippingEl) shippingEl.textContent = formatMoney(shipping);
   if (totalEl) totalEl.textContent = formatMoney(total);
 
+  if (orderSummarySubtotalEl) orderSummarySubtotalEl.textContent = formatMoney(subtotal);
+  if (orderSummaryShippingEl) orderSummaryShippingEl.textContent = formatMoney(shipping);
+  if (orderSummaryTotalEl) orderSummaryTotalEl.textContent = formatMoney(total);
+
   cartCount = cart.reduce((s, it) => s + it.qty, 0);
   cartCountElements.forEach((el) => (el.textContent = cartCount));
+}
+
+function renderOrderSummary() {
+  if (!orderSummaryItemsEl) return;
+
+  orderSummaryItemsEl.innerHTML = "";
+  if (cart.length === 0) {
+    const emptyMessage = document.createElement("li");
+    emptyMessage.className = "cart-item";
+    emptyMessage.innerHTML = `<div class="meta"><strong>購物車目前空空如也</strong><small>請到菜單頁新增餐點。</small></div>`;
+    orderSummaryItemsEl.appendChild(emptyMessage);
+    return;
+  }
+
+  cart.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "cart-item";
+    li.innerHTML = `
+      <div class="meta">
+        <strong>${item.name}</strong>
+        <small>${formatMoney(item.price)} x ${item.qty}</small>
+      </div>
+      <div>${formatMoney(item.price * item.qty)}</div>
+    `;
+    orderSummaryItemsEl.appendChild(li);
+  });
 }
 
 // 處理購物車按鈕（事件代理）
@@ -77,14 +142,25 @@ document.addEventListener("click", (event) => {
 
   const addBtn = event.target.closest("[data-add-to-cart]");
   if (addBtn) {
-    const name = addBtn.dataset.addToCart || "餐點";
-    cartCount += 1;
-    cartCountElements.forEach((element) => {
-      element.textContent = cartCount;
-    });
-    if (statusMessage) {
-      statusMessage.textContent = `已將「${name}」加入購物車。`;
+    const id = Number(addBtn.dataset.id);
+    const price = Number(addBtn.dataset.price || 0);
+    const menuItem = menuItems.find((item) => item.id === id);
+    const name = menuItem?.name || "餐點";
+    const card = addBtn.closest(".card");
+    const qtyInput = card?.querySelector("[data-menu-qty]");
+    const qty = Math.max(1, Number(qtyInput?.value || 1));
+    const existing = cart.find((c) => c.id === id);
+
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      cart.push({ id, name, price, qty });
     }
+
+    if (qtyInput) qtyInput.value = 1;
+    if (statusMessage) statusMessage.textContent = `已加入 ${qty} 份「${name}」`;
+    renderCart();
+    renderOrderSummary();
     return;
   }
 });
@@ -101,6 +177,8 @@ simulateBtn?.addEventListener("click", () => {
 
 // 初次渲染購物車
 renderCart();
+renderOrderSummary();
+renderMenu();
 
 // ---------- Order Progress (訂單進度) ----------
 const ORDER_STEPS = [

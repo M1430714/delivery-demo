@@ -39,6 +39,19 @@
           <span id="current-step-label" class="muted"></span>
         </div>
       </section>
+
+      <section class="panel order-summary" aria-labelledby="order-summary-heading">
+        <h2 id="order-summary-heading">訂單摘要</h2>
+        <p class="muted">您已選取的餐點與金額明細（模擬資料）。</p>
+
+        <ul class="cart-items" id="order-summary-items"></ul>
+
+        <div class="cart-totals" aria-live="polite">
+          <div class="totals-row"><span>小計</span><span id="order-summary-subtotal">NT$0</span></div>
+          <div class="totals-row"><span>運費</span><span id="order-summary-shipping">NT$0</span></div>
+          <div class="totals-row total"><span>總金額</span><span id="order-summary-total">NT$0</span></div>
+        </div>
+      </section>
     </main>
     <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
   </body>

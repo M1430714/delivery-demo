@@ -18,23 +18,19 @@
     </header>
     <main class="container">
       <section class="page-heading"><p class="eyebrow">訂單確認</p><h1>購物車</h1><p class="muted">這是前台原型，不會真的送出訂單。</p></section>
-      <section class="panel cart-summary" aria-labelledby="cart-heading">
-        <h2 id="cart-heading">購物車摘要 — 披薩店</h2>
-        <p class="muted">以下為範例品項（此為模擬頁面，不會實際付款）。</p>
-
-        <ul class="cart-items" id="cart-items">
-          <!-- JS 會在此渲染至少兩項餐點 -->
-        </ul>
-
-        <div class="cart-totals" aria-live="polite">
-          <div class="totals-row"><span>小計</span><span id="subtotal">NT$0</span></div>
-          <div class="totals-row"><span>運費</span><span id="shipping">NT$0</span></div>
-          <div class="totals-row total"><span>總金額</span><span id="total">NT$0</span></div>
-        </div>
-
-        <div class="actions">
+      <section class="panel">
+        <ul id="cart-items" class="cart-list"></ul>
+        <div class="cart-summary">
+          <dl>
+            <dt>小計</dt>
+            <dd id="subtotal">NT$0</dd>
+            <dt>運費</dt>
+            <dd id="shipping">NT$0</dd>
+            <dt>總金額</dt>
+            <dd id="total">NT$0</dd>
+          </dl>
           <button id="simulate-order" class="button">模擬下單</button>
-          <p class="status-message" data-status-message id="cart-status"></p>
+          <p id="cart-status" class="status-message" aria-live="polite"></p>
         </div>
       </section>
     </main>
