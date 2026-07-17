@@ -106,6 +106,8 @@ function renderCart() {
   });
 
   recalcTotals();
+  // 也更新訂單摘要（若該頁有顯示）以確保跨頁或同頁面元件同步
+  renderOrderSummary();
 }
 
 function recalcTotals() {
@@ -208,6 +210,24 @@ simulateBtn?.addEventListener("click", () => {
 // 初次渲染購物車
 renderCart();
 renderOrderSummary();
+
+// 當 localStorage 在其他分頁/視窗變更時，同步更新 cart 與畫面
+window.addEventListener('storage', (e) => {
+  if (e.key !== 'cart') return;
+  try {
+    const parsed = JSON.parse(e.newValue || 'null');
+    if (Array.isArray(parsed)) {
+      cart = parsed;
+    } else {
+      cart = [];
+    }
+  } catch (err) {
+    cart = [];
+  }
+  // 重新渲染相關 UI
+  renderCart();
+  renderOrderSummary();
+});
 
 // ---------- Order Progress (訂單進度) ----------
 const ORDER_STEPS = [
