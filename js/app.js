@@ -4,11 +4,8 @@ const cartCountElements = document.querySelectorAll("[data-cart-count]");
 const statusMessage = document.querySelector("[data-status-message]");
 
 // 範例購物車（至少兩項披薩）
-// 預設購物車內容（若 localStorage 無資料則使用）
-let cart = [
-  { id: 1, name: "瑪格麗特披薩", price: 250, qty: 1 },
-  { id: 2, name: "夏威夷披薩", price: 280, qty: 1 }
-];
+// 預設購物車內容（若 localStorage 無資料則使用空陣列）
+let cart = [];
 
 function loadCartFromStorage() {
   try {
