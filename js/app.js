@@ -22,9 +22,33 @@ const orderSummaryItemsEl = document.getElementById("order-summary-items");
 const orderSummarySubtotalEl = document.getElementById("order-summary-subtotal");
 const orderSummaryShippingEl = document.getElementById("order-summary-shipping");
 const orderSummaryTotalEl = document.getElementById("order-summary-total");
+const menuListEl = document.getElementById("menu-list");
+
+const menuItems = [
+  { id: 1, name: "瑪格麗特披薩", price: 250, description: "經典羅勒乳酪搭配新鮮番茄" },
+  { id: 2, name: "夏威夷披薩", price: 280, description: "鳳梨火腿風味，甜鹹交錯" },
+  { id: 3, name: "燻雞凱薩沙拉", price: 200, description: "清爽生菜與燻雞，輕盈好選擇" }
+];
 
 function formatMoney(n) {
   return `NT$${n.toString()}`;
+}
+
+function renderMenu() {
+  if (!menuListEl) return;
+
+  menuListEl.innerHTML = "";
+  menuItems.forEach((item) => {
+    const article = document.createElement("article");
+    article.className = "card";
+    article.innerHTML = `
+      <h3>${item.name}</h3>
+      <p>${item.description}</p>
+      <p><strong>${formatMoney(item.price)}</strong></p>
+      <button class="button" data-add-to-cart="${item.name}" data-id="${item.id}" data-price="${item.price}">加入購物車</button>
+    `;
+    menuListEl.appendChild(article);
+  });
 }
 
 function renderCart() {
@@ -112,8 +136,20 @@ document.addEventListener("click", (event) => {
 
   const addBtn = event.target.closest("[data-add-to-cart]");
   if (addBtn) {
+    const id = Number(addBtn.dataset.id);
     const name = addBtn.dataset.addToCart || "餐點";
+    const price = Number(addBtn.dataset.price || 0);
+    const existing = cart.find((c) => c.id === id);
+
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ id, name, price, qty: 1 });
+    }
+
     if (statusMessage) statusMessage.textContent = `已加入「${name}」`;
+    renderCart();
+    renderOrderSummary();
     return;
   }
 });
@@ -131,6 +167,7 @@ simulateBtn?.addEventListener("click", () => {
 // 初次渲染購物車
 renderCart();
 renderOrderSummary();
+renderMenu();
 
 // ---------- Order Progress (訂單進度) ----------
 const ORDER_STEPS = [
