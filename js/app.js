@@ -4,10 +4,35 @@ const cartCountElements = document.querySelectorAll("[data-cart-count]");
 const statusMessage = document.querySelector("[data-status-message]");
 
 // 範例購物車（至少兩項披薩）
+// 預設購物車內容（若 localStorage 無資料則使用）
 let cart = [
   { id: 1, name: "瑪格麗特披薩", price: 250, qty: 1 },
   { id: 2, name: "夏威夷披薩", price: 280, qty: 1 }
 ];
+
+function loadCartFromStorage() {
+  try {
+    const raw = localStorage.getItem('cart');
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed;
+  } catch (e) {
+    console.warn('loadCartFromStorage error', e);
+  }
+  return null;
+}
+
+function saveCartToStorage() {
+  try {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  } catch (e) {
+    console.warn('saveCartToStorage error', e);
+  }
+}
+
+// 嘗試從 localStorage 載入購物車（若存在）
+const _persisted = loadCartFromStorage();
+if (_persisted) cart = _persisted;
 
 const SHIPPING_FEE = 60;
 
@@ -136,6 +161,7 @@ document.addEventListener("click", (event) => {
     if (!item) return;
     item.qty = Math.max(0, item.qty + delta);
     cart = cart.filter((c) => c.qty > 0);
+    saveCartToStorage();
     renderCart();
     return;
   }
@@ -157,6 +183,8 @@ document.addEventListener("click", (event) => {
       cart.push({ id, name, price, qty });
     }
 
+    // 儲存與更新 UI
+    saveCartToStorage();
     if (qtyInput) qtyInput.value = 1;
     if (statusMessage) statusMessage.textContent = `已加入 ${qty} 份「${name}」`;
     renderCart();
