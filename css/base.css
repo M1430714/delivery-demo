@@ -39,11 +39,16 @@ footer {
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: 68px;
   border-bottom: 1px solid var(--line);
+  background: rgba(26, 22, 20, 0.98);
+  backdrop-filter: blur(10px);
 }
 
 .site-header nav {
