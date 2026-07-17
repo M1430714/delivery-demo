@@ -149,6 +149,8 @@ function renderOrderSummary() {
     `;
     orderSummaryItemsEl.appendChild(li);
   });
+  // 更新金額顯示，確保在沒有 cart-items 元素的頁面也會更新小計/運費/總金額
+  recalcTotals();
 }
 
 // 處理購物車按鈕（事件代理）
