@@ -83,7 +83,6 @@ function renderMenu() {
 }
 
 function renderCart() {
-  // 如果有購物車列表容器，渲染項目；否則僅更新金額/數量等摘要
   if (cartItemsEl) {
     cartItemsEl.innerHTML = "";
     cart.forEach((item) => {
@@ -106,7 +105,6 @@ function renderCart() {
     });
   }
 
-  // 無論是否有 cart-items 元素，都要更新總計與右上角數量，並更新訂單摘要（若顯示）
   recalcTotals();
   renderOrderSummary();
 }
@@ -225,7 +223,6 @@ window.addEventListener('storage', (e) => {
   } catch (err) {
     cart = [];
   }
-  // 重新渲染相關 UI
   renderCart();
   renderOrderSummary();
 });
