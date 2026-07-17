@@ -29,11 +29,9 @@ delivery-demo-starter/
 main（正式展示版本）
 └── dev（整合版本）
     ├── feature/home
-    ├── feature/restaurants
-    ├── feature/menu
-    ├── feature/cart
-    ├── feature/order-status
-    └── feature/profile-contact
+    ├── feature/browse
+    ├── feature/checkout
+    └── feature/account
 ```
 
 1. 組長建立 repository，並從 `main` 建立 `dev`。
@@ -52,18 +50,16 @@ main（正式展示版本）
 
 > 若使用 GitHub Free，請使用公開 repository，且不要放入密碼、Token、API Key 或其他機密資料。
 
-## 六位組員任務
+## 四位組員任務
 
-每人建立 **feature branch 與 Pull Request**。請優先修改自己負責的檔案；若真的需要改共用檔案，先與組長協調。
+每人建立 **feature branch 與 Pull Request**。相關頁面依使用者流程分組，方便在同一分支內完成串接測試。請優先修改自己負責的檔案；若真的需要改共用檔案，先與組長協調。
 
-| 成員 | Branch                      | 主要檔案                                       | 任務                                                        | 驗收條件                                     |
-| ---- | --------------------------- | ---------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------- |
-| 1    |  `feature/home`           | `index.html`                                 | 完成首頁與平台介紹，加入至少 3 個服務特色或使用步驟。       | 首頁有清楚標題、介紹與可前往餐廳頁的連結。   |
-| 2    | `feature/restaurants`     | `pages/restaurants.html`                     | 建立至少 3 張餐廳卡片：名稱、類型、營業時間與菜單連結。     | 三張卡片都能看見，且至少一個連結可到菜單頁。 |
-| 3    | `feature/menu`            | `pages/menu.html`                            | 建立至少 3 張餐點卡片：名稱、簡介、價格與加入購物車按鈕。   | 點擊按鈕時，畫面顯示已加入的提示。           |
-| 4    | `feature/cart`            | `pages/cart.html`                            | 建立購物車摘要：至少 2 項餐點、運費、總金額與模擬下單按鈕。 | 金額資訊清楚，按鈕不需要真的付款。           |
-| 5    | `feature/order-status`    | `pages/order-status.html`                    | 建立訂單進度：店家接單、餐點製作中、外送途中。              | 至少三個步驟，且能辨識目前進行中的狀態。     |
-| 6    | `feature/profile-contact` | `pages/profile.html`、`pages/contact.html` | 建立會員資料與客服資訊，或做一個不送出的意見表單。          | 兩頁都有明確內容，且不填入真實個人資料。     |
+| 成員 | Branch             | 主要檔案                                              | 任務                                                                                                               | 驗收條件                                                                 |
+| ---- | ------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| 1    | `feature/home`     | `index.html`                                          | 完成首頁與平台介紹，加入至少 3 個服務特色或使用步驟。                                                                    | 首頁有清楚標題、介紹與可前往餐廳頁的連結。                               |
+| 2    | `feature/browse`   | `pages/restaurants.html`、`pages/menu.html`           | 完成瀏覽流程：建立至少 3 張餐廳卡片與 3 張餐點卡片，包含餐廳資訊、菜單連結、餐點價格與加入購物車按鈕。                  | 餐廳可連到菜單頁，且點擊加入購物車按鈕時顯示提示。                       |
+| 3    | `feature/checkout` | `pages/cart.html`、`pages/order-status.html`           | 完成結帳流程：建立至少 2 項餐點的購物車摘要、運費、總金額、模擬下單按鈕，以及至少 3 個步驟的訂單進度。                  | 金額資訊清楚，且能辨識目前進行中的訂單狀態。                             |
+| 4    | `feature/account`  | `pages/profile.html`、`pages/contact.html`             | 建立會員資料與客服資訊，或做一個不送出的意見表單。                                                                       | 兩頁都有明確內容，且不填入真實個人資料。                                 |
 
 ## Pull Request 檢查清單
 
