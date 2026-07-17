@@ -47,9 +47,12 @@ const orderSummaryTotalEl = document.getElementById("order-summary-total");
 const menuListEl = document.getElementById("menu-list");
 
 const menuItems = [
-  { id: 1, name: "瑪格麗特披薩", price: 250, description: "經典羅勒乳酪搭配新鮮番茄" },
-  { id: 2, name: "夏威夷披薩", price: 280, description: "鳳梨火腿風味，甜鹹交錯" },
-  { id: 3, name: "燻雞凱薩沙拉", price: 200, description: "清爽生菜與燻雞，輕盈好選擇" }
+  { id: 101, name: "起司薯餅蛋吐司", price: 65, description: "香酥薯餅、滑嫩煎蛋與濃郁起司" },
+  { id: 102, name: "玉米鮪魚蛋餅", price: 55, description: "鮪魚、甜玉米與蛋香" },
+  { id: 103, name: "蜜汁烤雞腿飯", price: 120, description: "去骨雞腿與白飯、配菜" },
+  { id: 104, name: "香煎鯖魚飯", price: 130, description: "鯖魚煎至酥香，搭配時蔬" },
+  { id: 105, name: "奶油培根義大利麵", price: 145, description: "培根與蘑菇白醬" },
+  { id: 106, name: "番茄肉醬義大利麵", price: 135, description: "慢燉豬肉末與番茄醬" }
 ];
 
 function formatMoney(n) {
@@ -203,7 +206,6 @@ simulateBtn?.addEventListener("click", () => {
 // 初次渲染購物車
 renderCart();
 renderOrderSummary();
-renderMenu();
 
 // ---------- Order Progress (訂單進度) ----------
 const ORDER_STEPS = [
