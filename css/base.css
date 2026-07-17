@@ -133,54 +133,6 @@ button {
   font-weight: 700;
 }
 
-/* Order progress styles */
-.order-progress .steps {
-  list-style: none;
-  padding: 0;
-  margin: 18px 0;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.order-progress .steps li {
-  flex: 1 1 140px;
-  min-width: 120px;
-  padding: 12px;
-  border-radius: 10px;
-  background: #f1f6f9;
-  border: 1px solid #e6edf3;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.order-progress .steps li .dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #cfdbe6;
-  flex: 0 0 14px;
-}
-.order-progress .steps li.completed {
-  background: #e9f7f0;
-  border-color: #cdeedd;
-}
-.order-progress .steps li.completed .dot {
-  background: #2e7d61;
-}
-.order-progress .steps li.active {
-  background: #fff9ec;
-  border-color: #f2d8b8;
-}
-.order-progress .steps li.active .dot {
-  background: #c87542;
-}
-.progress-controls {
-  margin-top: 12px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
 footer {
   padding-top: 28px;
   padding-bottom: 36px;
