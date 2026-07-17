@@ -83,14 +83,13 @@ function renderMenu() {
 }
 
 function renderCart() {
-  if (!cartItemsEl) return;
-
-  cartItemsEl.innerHTML = "";
-  cart.forEach((item) => {
-    const li = document.createElement("li");
-    li.className = "cart-item";
-    li.dataset.id = item.id;
-    li.innerHTML = `
+  if (cartItemsEl) {
+    cartItemsEl.innerHTML = "";
+    cart.forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "cart-item";
+      li.dataset.id = item.id;
+      li.innerHTML = `
       <div class="meta">
         <strong>${item.name}</strong>
         <small>${formatMoney(item.price)} / 份</small>
@@ -102,10 +101,12 @@ function renderCart() {
         <span style="margin-left:12px;">${formatMoney(item.price * item.qty)}</span>
       </div>
     `;
-    cartItemsEl.appendChild(li);
-  });
+      cartItemsEl.appendChild(li);
+    });
+  }
 
   recalcTotals();
+  renderOrderSummary();
 }
 
 function recalcTotals() {
@@ -208,6 +209,23 @@ simulateBtn?.addEventListener("click", () => {
 // 初次渲染購物車
 renderCart();
 renderOrderSummary();
+
+// 當 localStorage 在其他分頁/視窗變更時，同步更新 cart 與畫面
+window.addEventListener('storage', (e) => {
+  if (e.key !== 'cart') return;
+  try {
+    const parsed = JSON.parse(e.newValue || 'null');
+    if (Array.isArray(parsed)) {
+      cart = parsed;
+    } else {
+      cart = [];
+    }
+  } catch (err) {
+    cart = [];
+  }
+  renderCart();
+  renderOrderSummary();
+});
 
 // ---------- Order Progress (訂單進度) ----------
 const ORDER_STEPS = [
