@@ -83,14 +83,14 @@ function renderMenu() {
 }
 
 function renderCart() {
-  if (!cartItemsEl) return;
-
-  cartItemsEl.innerHTML = "";
-  cart.forEach((item) => {
-    const li = document.createElement("li");
-    li.className = "cart-item";
-    li.dataset.id = item.id;
-    li.innerHTML = `
+  // 如果有購物車列表容器，渲染項目；否則僅更新金額/數量等摘要
+  if (cartItemsEl) {
+    cartItemsEl.innerHTML = "";
+    cart.forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "cart-item";
+      li.dataset.id = item.id;
+      li.innerHTML = `
       <div class="meta">
         <strong>${item.name}</strong>
         <small>${formatMoney(item.price)} / 份</small>
@@ -102,11 +102,12 @@ function renderCart() {
         <span style="margin-left:12px;">${formatMoney(item.price * item.qty)}</span>
       </div>
     `;
-    cartItemsEl.appendChild(li);
-  });
+      cartItemsEl.appendChild(li);
+    });
+  }
 
+  // 無論是否有 cart-items 元素，都要更新總計與右上角數量，並更新訂單摘要（若顯示）
   recalcTotals();
-  // 也更新訂單摘要（若該頁有顯示）以確保跨頁或同頁面元件同步
   renderOrderSummary();
 }
 
