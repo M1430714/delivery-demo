@@ -13,6 +13,6 @@ document.addEventListener("click", (event) => {
   });
 
   if (statusMessage) {
-    statusMessage.textContent = `已加入「${button.dataset.addToCart}」`;
+    statusMessage.textContent = `已將「${button.dataset.addToCart}」加入購物車。`;
   }
 });

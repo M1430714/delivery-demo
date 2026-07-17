@@ -3,19 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>校園外送｜餐廳</title>
+    <title>餐廳列表｜校園外送</title>
     <link rel="stylesheet" href="../css/base.css" />
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="../index.html">校園外送</a>
-      <nav aria-label="主要導覽"><a href="../index.html">首頁</a><a href="menu.html">菜單</a><a href="cart.html">購物車 <span data-cart-count>0</span></a></nav>
+      <nav aria-label="主要導覽">
+        <a href="../index.html">首頁</a>
+        <a href="restaurants.html" aria-current="page">餐廳</a>
+        <a href="menu.html">菜單</a>
+        <a href="cart.html">購物車（<span data-cart-count>0</span>）</a>
+      </nav>
     </header>
+
     <main class="container">
-      <section class="page-heading"><p class="eyebrow">選擇餐廳</p><h1>附近餐廳</h1><p class="muted">選一間餐廳，再查看它的菜單。</p></section>
-      <!-- 成員 2：將此區塊改為至少三張餐廳卡片。 -->
-      <section class="placeholder"><h2>餐廳列表</h2><p>待完成：新增餐廳名稱、類型、營業時間與前往菜單按鈕。</p></section>
+      <section class="page-heading">
+        <p class="eyebrow">附近餐廳</p>
+        <h1>今天想吃什麼？</h1>
+        <p class="muted">從早餐、便當到義大利麵，選擇喜歡的餐廳查看菜單。</p>
+      </section>
+
+      <section class="grid" aria-label="餐廳列表">
+        <article class="card">
+          <p class="eyebrow">早餐・輕食</p>
+          <h2>晨光早餐屋</h2>
+          <p>現做蛋餅、吐司與香濃飲品，適合早八前快速補充元氣。</p>
+          <p class="muted">營業時間：06:30–13:30</p>
+          <a class="button" href="menu.html#morning">查看早餐菜單</a>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow">台式・便當</p>
+          <h2>校園好食堂</h2>
+          <p>每日現做主菜搭配三樣配菜，份量充足又能吃得均衡。</p>
+          <p class="muted">營業時間：10:30–20:00</p>
+          <a class="button" href="menu.html#lunchbox">查看便當菜單</a>
+        </article>
+
+        <article class="card">
+          <p class="eyebrow">義式・麵食</p>
+          <h2>巷口義麵坊</h2>
+          <p>經典紅醬、白醬與青醬義大利麵，現點現煮、香氣十足。</p>
+          <p class="muted">營業時間：11:00–21:00</p>
+          <a class="button" href="menu.html#pasta">查看義麵菜單</a>
+        </article>
+      </section>
     </main>
-    <footer>校園外送小組協作練習</footer><script src="../js/app.js"></script>
+
+    <footer>校園外送・課堂協作練習專案</footer>
+    <script src="../js/app.js"></script>
   </body>
 </html>
