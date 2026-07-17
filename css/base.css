@@ -298,22 +298,30 @@ footer {
 
 .page-heading {
   margin: 46px 0 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--panel-border);
 }
 
 .page-heading h1 {
-  margin-bottom: 8px;
-  line-height: 1.15;
-  max-width: 38rem;
+  margin-bottom: 10px;
+  line-height: 1.18;
+  max-width: 40rem;
 }
 
 .page-heading p.muted {
-  max-width: 45rem;
+  max-width: 48rem;
+}
+
+.page-heading + .status-message,
+.page-heading + .panel,
+.page-heading + .grid {
+  margin-top: 20px;
 }
 
 .card,
 .panel,
 .placeholder {
-  min-height: 220px;
+  min-height: 240px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -324,6 +332,7 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 18px;
   margin-bottom: 36px;
+  align-items: stretch;
 }
 
 @media (max-width: 700px) {
