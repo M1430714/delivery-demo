@@ -45,7 +45,13 @@ function renderMenu() {
       <h3>${item.name}</h3>
       <p>${item.description}</p>
       <p><strong>${formatMoney(item.price)}</strong></p>
-      <button class="button" data-add-to-cart="${item.name}" data-id="${item.id}" data-price="${item.price}">加入購物車</button>
+      <div class="menu-actions">
+        <label>
+          數量
+          <input class="menu-qty" type="number" min="1" step="1" value="1" aria-label="${item.name} 數量" data-menu-qty>
+        </label>
+        <button class="button" data-add-to-cart data-id="${item.id}" data-price="${item.price}">加入購物車</button>
+      </div>
     `;
     menuListEl.appendChild(article);
   });
@@ -137,17 +143,22 @@ document.addEventListener("click", (event) => {
   const addBtn = event.target.closest("[data-add-to-cart]");
   if (addBtn) {
     const id = Number(addBtn.dataset.id);
-    const name = addBtn.dataset.addToCart || "餐點";
     const price = Number(addBtn.dataset.price || 0);
+    const menuItem = menuItems.find((item) => item.id === id);
+    const name = menuItem?.name || "餐點";
+    const card = addBtn.closest(".card");
+    const qtyInput = card?.querySelector("[data-menu-qty]");
+    const qty = Math.max(1, Number(qtyInput?.value || 1));
     const existing = cart.find((c) => c.id === id);
 
     if (existing) {
-      existing.qty += 1;
+      existing.qty += qty;
     } else {
-      cart.push({ id, name, price, qty: 1 });
+      cart.push({ id, name, price, qty });
     }
 
-    if (statusMessage) statusMessage.textContent = `已加入「${name}」`;
+    if (qtyInput) qtyInput.value = 1;
+    if (statusMessage) statusMessage.textContent = `已加入 ${qty} 份「${name}」`;
     renderCart();
     renderOrderSummary();
     return;
