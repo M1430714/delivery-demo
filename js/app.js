@@ -18,6 +18,11 @@ const totalEl = document.getElementById("total");
 const simulateBtn = document.getElementById("simulate-order");
 const cartStatus = document.getElementById("cart-status");
 
+const orderSummaryItemsEl = document.getElementById("order-summary-items");
+const orderSummarySubtotalEl = document.getElementById("order-summary-subtotal");
+const orderSummaryShippingEl = document.getElementById("order-summary-shipping");
+const orderSummaryTotalEl = document.getElementById("order-summary-total");
+
 function formatMoney(n) {
   return `NT$${n.toString()}`;
 }
@@ -57,8 +62,38 @@ function recalcTotals() {
   if (shippingEl) shippingEl.textContent = formatMoney(shipping);
   if (totalEl) totalEl.textContent = formatMoney(total);
 
+  if (orderSummarySubtotalEl) orderSummarySubtotalEl.textContent = formatMoney(subtotal);
+  if (orderSummaryShippingEl) orderSummaryShippingEl.textContent = formatMoney(shipping);
+  if (orderSummaryTotalEl) orderSummaryTotalEl.textContent = formatMoney(total);
+
   cartCount = cart.reduce((s, it) => s + it.qty, 0);
   cartCountElements.forEach((el) => (el.textContent = cartCount));
+}
+
+function renderOrderSummary() {
+  if (!orderSummaryItemsEl) return;
+
+  orderSummaryItemsEl.innerHTML = "";
+  if (cart.length === 0) {
+    const emptyMessage = document.createElement("li");
+    emptyMessage.className = "cart-item";
+    emptyMessage.innerHTML = `<div class="meta"><strong>購物車目前空空如也</strong><small>請到菜單頁新增餐點。</small></div>`;
+    orderSummaryItemsEl.appendChild(emptyMessage);
+    return;
+  }
+
+  cart.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "cart-item";
+    li.innerHTML = `
+      <div class="meta">
+        <strong>${item.name}</strong>
+        <small>${formatMoney(item.price)} x ${item.qty}</small>
+      </div>
+      <div>${formatMoney(item.price * item.qty)}</div>
+    `;
+    orderSummaryItemsEl.appendChild(li);
+  });
 }
 
 // 處理購物車按鈕（事件代理）
@@ -95,6 +130,7 @@ simulateBtn?.addEventListener("click", () => {
 
 // 初次渲染購物車
 renderCart();
+renderOrderSummary();
 
 // ---------- Order Progress (訂單進度) ----------
 const ORDER_STEPS = [
